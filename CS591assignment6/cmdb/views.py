@@ -23,7 +23,7 @@ def login(request):
     #username = request.GET.get("name", None)
     #password = request.GET.get("password", None)
     userPassJudge = models.users.objects.filter(UserName=username, PassWord=password)
-    print(userPassJudge.get(UserName=username).User_ID)
+    #print(userPassJudge.get(UserName=username).User_ID)
     if userPassJudge:
         return JsonResponse({'result': "true","UserID": userPassJudge.get(UserName=username).User_ID})
     else:
@@ -41,7 +41,7 @@ def create(request):
 @csrf_exempt
 def top_5(request):
     data=models.tests.objects.values("User_ID").annotate(totalScore=Max("Score")).order_by("-totalScore").all()
-    print(data)
+    #print(data)
     #data=models.tests.objects.order_by("-Score")
     len=min(data.__len__(),5)
     datas=[]
@@ -83,6 +83,6 @@ def update1(request):
 def test(request):
     #print(models.tests.objects.values("User_ID").annotate(totalScore=Sum("Score")).order_by("-totalScore").all())
     #print(models.tests.objects.filter(User_ID=3).values_list("Score"))
-    print(models.tests.objects.values("User_ID").annotate(MaxScore=Max("Score")).order_by("-MaxScore").all())
+    #print(models.tests.objects.values("User_ID").annotate(MaxScore=Max("Score")).order_by("-MaxScore").all())
     return JsonResponse({"result":"true"})
 #python manage.py runserver 192.168.0.100:80
